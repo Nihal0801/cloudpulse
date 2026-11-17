@@ -1,0 +1,7 @@
+aws_region   = "us-east-1"
+project_name = "cloudpulse"
+# Optional. AWS sends a confirmation email before alerts can arrive.
+alert_email = ""
+targets = [
+  { id = "my-api", name = "My API", url = "https://example.com/" }
+]

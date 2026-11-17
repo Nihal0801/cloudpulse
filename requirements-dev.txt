@@ -1,0 +1,4 @@
+boto3==1.42.97
+moto[dynamodb]==5.1.22
+ruff==0.14.6
+coverage[toml]==7.10.7

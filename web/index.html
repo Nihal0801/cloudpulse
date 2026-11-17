@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="CloudPulse service monitoring dashboard"
+    />
+    <title>CloudPulse | Service health</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <aside class="sidebar">
+      <a class="brand" href="/" aria-label="CloudPulse home"
+        ><img src="/favicon.svg" alt="" width="34" height="34" />CloudPulse</a
+      >
+      <div class="workspace">PERSONAL WORKSPACE</div>
+      <a class="nav active" href="#overview"
+        ><span aria-hidden="true">▦</span> Overview</a
+      >
+      <a class="nav" href="#services"
+        ><span aria-hidden="true">≡</span> Services</a
+      >
+      <a class="nav" href="#incidents"
+        ><span aria-hidden="true">◷</span> Incident history</a
+      >
+      <div class="sidebar-bottom">
+        <span class="dot"></span> Small system. Clear signals.
+        <p>Built with Python and AWS</p>
+      </div>
+    </aside>
+    <main id="overview">
+      <header>
+        <div class="breadcrumb">Workspace <span>/</span> Overview</div>
+        <div class="top-right">
+          <span class="mode" id="mode">Connecting</span
+          ><span class="avatar" aria-label="Personal workspace">NP</span>
+        </div>
+      </header>
+      <section class="page-heading">
+        <div>
+          <div class="eyebrow">SERVICE MONITORING</div>
+          <h1>Know how your services are doing.</h1>
+          <p>Health, response times and incidents in one place.</p>
+        </div>
+        <button id="refresh" class="secondary">
+          Refresh data <span aria-hidden="true">↻</span>
+        </button>
+      </section>
+      <div id="error" class="error" role="alert" hidden></div>
+      <section class="health-banner" id="health-banner">
+        <div class="status-symbol" aria-hidden="true">✓</div>
+        <div>
+          <h2 id="health-title">Checking service health</h2>
+          <p id="health-detail">Waiting for monitoring data.</p>
+        </div>
+        <div class="updated" id="updated">Connecting…</div>
+      </section>
+      <section class="stats" aria-label="Monitoring summary">
+        <article>
+          <p>Healthy services</p>
+          <div>
+            <strong id="healthy">—</strong
+            ><span id="healthy-total">/ — monitored</span>
+          </div>
+          <small>Latest check per service</small>
+        </article>
+        <article>
+          <p>Sample uptime</p>
+          <div><strong id="uptime">—</strong><span>%</span></div>
+          <small>Last 100 checks per service</small>
+        </article>
+        <article>
+          <p>Average response</p>
+          <div><strong id="latency">—</strong><span>ms</span></div>
+          <small>Successful checks in this window</small>
+        </article>
+        <article>
+          <p>Open incidents</p>
+          <div>
+            <strong id="open">—</strong
+            ><span id="open-label">currently active</span>
+          </div>
+          <small>After 2 consecutive failures</small>
+        </article>
+      </section>
+      <section class="panel" id="services">
+        <div class="panel-heading">
+          <div>
+            <h2>Monitored services</h2>
+            <p>Each bar is one check. Hover for the result.</p>
+          </div>
+          <span class="legend"
+            ><i class="up"></i> Healthy <i class="down"></i> Failed</span
+          >
+        </div>
+        <div id="service-list" aria-live="polite">
+          <p class="empty">Loading services…</p>
+        </div>
+      </section>
+      <section class="lower-grid">
+        <article class="panel response-panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Response times</h2>
+              <p>Last 30 checks · milliseconds</p>
+            </div>
+            <select
+              id="chart-service"
+              aria-label="Service for response time chart"
+            ></select>
+          </div>
+          <div class="chart-wrap">
+            <svg
+              id="chart"
+              viewBox="0 0 600 180"
+              role="img"
+              aria-label="Response time chart"
+            ></svg>
+          </div>
+          <div class="chart-caption">
+            <span>Older checks</span><span>Latest check</span>
+          </div>
+        </article>
+        <article class="panel" id="incidents">
+          <div class="panel-heading">
+            <div>
+              <h2>Incident history</h2>
+              <p>Recent openings and recoveries</p>
+            </div>
+            <span class="small-label" id="event-count">0 events</span>
+          </div>
+          <div id="events"><p class="empty">No incidents recorded.</p></div>
+        </article>
+      </section>
+      <section id="demo-controls" class="demo-controls" hidden>
+        <div>
+          <strong>Try a service failure</strong>
+          <p>
+            Demo includes synthetic history. New checks use real local HTTP
+            requests every 10 seconds.
+          </p>
+          <p>
+            Fail Billing, then run two checks at least a second apart. Restore
+            it and check again to see recovery.
+          </p>
+        </div>
+        <div class="demo-buttons">
+          <button id="toggle">Fail Billing</button
+          ><button id="check" class="secondary">Run check</button>
+        </div>
+        <p id="demo-message" role="status"></p>
+      </section>
+      <footer>
+        <span>CloudPulse · Service health overview</span
+        ><span id="footer-note"
+          >Public HTTPS monitoring · refreshes every 10 seconds</span
+        >
+      </footer>
+    </main>
+  </body>
+</html>
